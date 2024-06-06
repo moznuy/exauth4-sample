@@ -1,0 +1,14 @@
+options:
+  docker: true
+
+pipelines:
+  default:
+    - step:
+        name: Build image and publish commit
+        caches:
+          - docker
+        image: europe-docker.pkg.dev/XXXXXX/public/bitbucket:v4
+        script:
+          - pipez prepare docker
+          - pipez package build
+          - pipez package deploy

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tokens</title>
+    <style>
+        tr > td {
+            border-left: black 1px solid;
+            border-right: black 1px solid;
+            padding: 0.5em;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Token Base64</th>
+        <th>Token</th>
+        <th>Customer Unct</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for token_info in tokens %}
+        <tr>
+            <td>{{ token_info.token_b64 }}</td>
+            <td>{{ token_info.token }}</td>
+            <td>{{ token_info.unct }}</td>
+            <td>
+                <form method="post" action="/api/tokens/delete">
+                    <input type="hidden" id="token" name="token" value="{{ token_info.token }}"/>
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<form method="post">
+    <label for="customer">Customer:</label>
+    <input type="text" id="customer" name="customer"/>
+    <label for="token">Token:</label>
+    <input type="text" id="token" name="token"/>
+    <input type="submit" value="Create token for customer">
+</form>
+</body>
+</html>

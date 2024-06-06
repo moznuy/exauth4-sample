@@ -1,0 +1,14 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ include "exauth.fullname" . }}
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`auth.management.XXXXXX`, `auth.s1.XXXXXX`)
+      services:
+        - name: {{ include "exauth.fullname" . }}
+          port: {{ .Values.service.port }}
+  tls: {}

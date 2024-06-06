@@ -1,0 +1,7 @@
+.idea
+htmlcov
+**/charts/*
+
+**/*.py[cod]
+.env
+.coverage

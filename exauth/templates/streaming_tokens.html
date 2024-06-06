@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Streaming Tokens</title>
+    <style>
+        tr > td {
+            border-left: black 1px solid;
+            border-right: black 1px solid;
+            padding: 0.5em;
+        }
+
+        .blue {
+            max-width: 80rem;
+            word-wrap: break-word;
+            color: #0000EE;
+            text-decoration: underline;
+        }
+
+        .blue:hover {
+            color: inherit;
+            text-decoration: inherit;
+        }
+
+        .blue > .p1 {
+            display: inherit;
+        }
+
+        .blue > .p2 {
+            display: none;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            overflow-wrap: anywhere;
+        }
+
+        .blue:hover > .p1 {
+            display: none;
+        }
+
+        .blue:hover > .p2 {
+            display: inherit;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Customer Unct</th>
+        <th>Service</th>
+        <th>Cluster</th>
+        <th>Version</th>
+        <th>Room</th>
+        <th>Environment</th>
+        <th>Expiration at</th>
+        <th>Expiration in</th>
+        <th>Valid</th>
+        <th>Token</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for token_info in tokens %}
+        <tr>
+            <td>{{ token_info.unct }}</td>
+            <td>{{ token_info.service }}</td>
+            <td>{{ token_info.cluster }}</td>
+            <td>{{ token_info.version }}</td>
+            <td>{{ token_info.room }}</td>
+            <td>{{ token_info.env }}</td>
+            <td>{{ token_info.exp_at }}</td>
+            <td>{{ token_info.exp_in }}</td>
+            <td>{{ token_info.verified }}</td>
+            <td class="blue">
+                <p class="p1">Show</p>
+                <p class="p2">{{ token_info.token }}</p>
+            </td>
+            <td>
+                <form method="post" action="/api/streaming_tokens/delete">
+                    <input type="hidden" id="key" name="key" value="{{ token_info.key }}"/>
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>
